@@ -1,7 +1,7 @@
 <?php
-// 1. PHP 负责定义数据 (使用新的远程命令执行（RCE）和绕过关卡)
+// 1. PHP 负责定义数据 (远程命令执行（RCE）和绕过关卡)
 $challenges = array(
-    // 基础信息获取命令 (less-1 到 less-18)
+    // 基础信息获取与分析命令 (less-1 到 less-18)
     "less-1" => array(
         "title" => "cat 命令读取文件",
         "description" => "尝试利用 cat 命令读取指定文件内容",
@@ -93,133 +93,152 @@ $challenges = array(
         "url" => "/less-18/"
     ),
 
-    // 网络及交互命令 (less-19 到 less-24)
     "less-19" => array(
-        "title" => "ping 命令网络探测",
-        "description" => "尝试使用 ping 命令测试出网，了解下dnslog玩法",
+        "title" => "cp 命令复制文件",
+        "description" => "尝试利用 cp 命令将文件复制到 Web 目录",
         "url" => "/less-19/"
     ),
     "less-20" => array(
-        "title" => "curl 命令数据传输",
-        "description" => "使用 curl 命令发送http请求，了解下weblog玩法、下载远程文件",
+        "title" => "mv 命令移动/更名文件",
+        "description" => "利用 mv 命令移动或重命名文件，实现文件隐藏、覆盖或 Webshell 部署。",
         "url" => "/less-20/"
     ),
+
     "less-21" => array(
-        "title" => "echo 命令回显输出",
-        "description" => "使用 echo 命令输出文本或变量内容，echo命令怎么写入木马？",
+        "title" => "ping 命令 DNSLOG/ICMP 外带",
+        "description" => "使用 ping 命令测试出网，利用 DNSLOG/ICMP 外带无回显命令执行结果",
         "url" => "/less-21/"
     ),
     "less-22" => array(
-        "title" => "wget 命令网络下载",
-        "description" => "使用 wget 命令下载文件，下载远程文件",
+        "title" => "curl 发起http请求",
+        "description" => "使用 curl 命令发送http请求，了解下weblog玩法、下载远程文件",
         "url" => "/less-22/"
     ),
     "less-23" => array(
-        "title" => "nc 反弹shell",
-        "description" => "使用 nc 命令进行网络连接和数据传输，尝试反弹shell",
+        "title" => "echo 命令回显输出",
+        "description" => "使用 echo 命令输出文本或变量内容，echo命令怎么重定向写入木马？",
         "url" => "/less-23/"
     ),
     "less-24" => array(
-        "title" => "ncat反弹Shell",
-        "description" => "ncat反弹shell，注意waf，可暂跳过本关，先学习后续绕过姿势，再回来挑战",
+        "title" => "wget 命令网络下载",
+        "description" => "使用 wget 命令下载文件，下载远程文件",
         "url" => "/less-24/"
     ),
-
-    // 命令执行分隔与逻辑 (less-25 到 less-30)
     "less-25" => array(
-        "title" => "通配符 ? 代替单字符",
-        "description" => "利用通配符 ? 来模糊匹配单个字符，【无懈可击】waf形同虚设",
+        "title" => "nc 反弹shell",
+        "description" => "使用 nc 命令进行反弹shell与监听，尝试反弹shell",
         "url" => "/less-25/"
     ),
     "less-26" => array(
-        "title" => "通配符 * 代替多字符",
-        "description" => "利用通配符 * 来模糊匹配多个字符，【无懈可击】waf形同虚设",
+        "title" => "ncat反弹Shell",
+        "description" => "ncat反弹shell，注意waf，可暂跳过本关，先学习后续绕过姿势，再回来挑战",
         "url" => "/less-26/"
     ),
+
     "less-27" => array(
-        "title" => "多命令执行分隔 ;",
-        "description" => "使用分号 ; 分隔符执行多个命令",
+        "title" => "sed 篡改/写入 Webshell",
+        "description" => "利用 sed 命令的特性，替换文件内容写入 Webshell",
         "url" => "/less-27/"
     ),
+
     "less-28" => array(
-        "title" => "多命令执行逻辑 &&",
-        "description" => "使用逻辑与 && 分隔符，在第一个命令成功时执行第二个命令，& 具有特殊语义，注意编码",
+        "title" => "通配符 ? 代替单字符",
+        "description" => "利用通配符 ? 来模糊匹配单个字符，【无懈可击】waf形同虚设",
         "url" => "/less-28/"
     ),
     "less-29" => array(
-        "title" => "多命令执行逻辑 ||",
-        "description" => "使用逻辑或 || 分隔符，在第一个命令失败时执行第二个命令",
+        "title" => "通配符 * 代替多字符",
+        "description" => "利用通配符 * 来模糊匹配多个字符，【无懈可击】waf形同虚设",
         "url" => "/less-29/"
     ),
     "less-30" => array(
-        "title" => "反引号 `` 优先级",
-        "description" => "反引号里的命令优先级高，会先执行，再执行外面的命令",
+        "title" => "\$变量定义绕过 WAF",
+        "description" => "利用 \$ 变量定义 绕过黑名单关键字，【无懈可击】waf形同虚设",
         "url" => "/less-30/"
     ),
-    
-    // 基础绕过技巧 (less-31 到 less-35)
     "less-31" => array(
-        "title" => "绕过注释 #",
-        "description" => "井号 # 会将后续内容注释掉，尝试绕过 # ",
+        "title" => "多命令执行分隔 ;",
+        "description" => "使用分号 ; 分隔符执行多个命令",
         "url" => "/less-31/"
     ),
     "less-32" => array(
-        "title" => "绕过空格 \t (Tab)",
-        "description" => "尝试用 Tab 键（URL编码为 %09 ）代替空格",
+        "title" => "多命令执行逻辑 &&",
+        "description" => "使用逻辑与 && 分隔符，在第一个命令成功时执行第二个命令，& 具有特殊语义，注意url编码",
         "url" => "/less-32/"
     ),
     "less-33" => array(
-        "title" => "绕过空格 \$IFS (环境变量)",
-        "description" => "尝试用 环境变量 \$IFS(分隔符) 代替空格",
+        "title" => "多命令执行逻辑 ||",
+        "description" => "使用逻辑或 || 分隔符，在第一个命令失败时执行第二个命令",
         "url" => "/less-33/"
     ),
     "less-34" => array(
-        "title" => "绕过空格 \${IFS}",
-        "description" => "利用 \${IFS} 环境变量代替空格进行命令执行",
+        "title" => "反引号 `` 优先级",
+        "description" => "反引号里的命令优先级高，会先执行，再执行外面的命令",
         "url" => "/less-34/"
     ),
     "less-35" => array(
-        "title" => "绕过空格 {,}",
-        "description" => "利用 Bash 的大括号扩展 {,} 结构来代替空格",
+        "title" => "绕过注释 #",
+        "description" => "井号 # 会将后续内容注释掉，尝试绕过 # ",
         "url" => "/less-35/"
     ),
-
-    // 关键字绕过技巧 (less-36 到 less-41)
     "less-36" => array(
-        "title" => "绕过黑名单关键字 ' (单引号)",
-        "description" => "怎么使用单引号绕过黑名单？",
+        "title" => "绕过空格 \t (Tab)",
+        "description" => "尝试用 Tab 键（URL编码为 %09 ）代替空格",
         "url" => "/less-36/"
     ),
+
+    // 进阶绕过技巧 (less-37 到 less-45)
     "less-37" => array(
-        "title" => "绕过黑名单关键字 \" (双引号)",
-        "description" => "怎么使用双引号绕过黑名单？",
+        "title" => "绕过空格 \$IFS (环境变量)",
+        "description" => "尝试用 环境变量 \$IFS(分隔符) 代替空格",
         "url" => "/less-37/"
     ),
     "less-38" => array(
-        "title" => "绕过黑名单关键字 ? (问号)",
-        "description" => "怎么使用问号绕过黑名单？",
+        "title" => "绕过空格 \${IFS}",
+        "description" => "利用 \${IFS} 环境变量代替空格进行命令执行",
         "url" => "/less-38/"
     ),
     "less-39" => array(
-        "title" => "绕过黑名单关键字 * (星号)",
-        "description" => "怎么使用星号绕过黑名单？",
+        "title" => "绕过空格 bash {,}",
+        "description" => "利用 Bash 的大括号扩展 {,} 结构来代替空格",
         "url" => "/less-39/"
     ),
     "less-40" => array(
-        "title" => "绕过黑名单关键字 \ (反斜杠)",
-        "description" => "怎么使用反斜杠绕过黑名单？",
+        "title" => "绕过黑名单关键字 ' (单引号)",
+        "description" => "怎么使用单引号绕过黑名单？",
         "url" => "/less-40/"
     ),
     "less-41" => array(
-        "title" => "绕过黑名单关键字 . (点)",
-        "description" => "真的没的玩了吗？你知道 . 可以做什么吗？<b>难度高</b>",
+        "title" => "绕过黑名单关键字 \" (双引号)",
+        "description" => "怎么使用双引号绕过黑名单？",
         "url" => "/less-41/"
     ),
-    
     "less-42" => array(
-        "title" => "最终考察 - 无回显 RCE",
-        "description" => "命令执行结果不回显，<b>不</b>",
+        "title" => "绕过黑名单关键字 ? (问号)",
+        "description" => "使用问号绕过黑名单？",
         "url" => "/less-42/"
+    ),
+    "less-43" => array(
+        "title" => "绕过黑名单关键字 * (星号)",
+        "description" => "使用星号绕过黑名单？",
+        "url" => "/less-43/"
+    ),
+    "less-44" => array(
+        "title" => "绕过黑名单关键字 \ (反斜杠)",
+        "description" => "使用反斜杠绕过黑名单",
+        "url" => "/less-44/"
+    ),
+    "less-45" => array(
+        "title" => "绕过黑名单关键字 . (点)",
+        "description" => "真的没的玩了吗？你知道 . 可以做什么吗？<b>难度高</b>",
+        "url" => "/less-45/"
+    ),
+
+    // 最终考察关卡 (原 less-45 已后延到 less-46)
+    "less-46" => array(
+        "title" => "最终考察 - 无回显 RCE",
+        "description" => "命令执行结果不回显。",
+        "url" => "/less-46/"
     ),
 );
 
@@ -233,7 +252,7 @@ if ($json_data === false) {
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>CTF 靶场挑战列表</title>
+    <title>rce-labs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <style>
         /* CSS 部分... */

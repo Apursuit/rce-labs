@@ -1,0 +1,5 @@
+# 忽略 git_push.sh 文件
+git_push.sh
+
+# 忽略 src/move.sh 文件
+src/move.sh

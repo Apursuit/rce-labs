@@ -2,7 +2,7 @@
 # /flag
 highlight_file(__FILE__);
 $cmd = $_GET['cmd'] ?? 'echo "<br>Ciallo～(∠・ω< )⌒★"';
-$pattern = '/cat|tac|head|tail|more|less|nl|sort|uniq|od|xxd|hexdump|base32|base64|strings|grep|file|find|ping|curl|echo|wget|nc/';
+$pattern = '/cat|tac|head|tail|more|less|nl|sort|uniq|od|xxd|hexdump|base32|base64|strings|grep|file|find|cp|mv|ping|curl|echo|wget/';
 if(!preg_match($pattern,$cmd)){
     system($cmd);
 }
