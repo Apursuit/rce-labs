@@ -11,7 +11,6 @@ jobs:
     # --- 关键修正：显式声明权限 ---
     permissions: 
       contents: write
-    # --------------------------------
 
     runs-on: ubuntu-latest
     
@@ -26,41 +25,6 @@ jobs:
 
       - name: Create GitHub Release
         # GITHUB_TOKEN 现在拥有了明确的写入权限
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.meta.outputs.tag }}
-          release_name: Release ${{ steps.meta.outputs.tag }}
-          draft: false
-          prerelease: false
-name: GitHub Release Creation
-
-# 只有当一个新的 Git Tag（例如 v1.1）被推送到 GitHub 时，才触发此工作流。
-on:
-  push:
-    tags:
-      - 'v*' # 匹配所有以 'v' 开头的标签，如 v1.0, v1.1, v2
-
-jobs:
-  create_release:
-    # --- 关键修正：显式声明权限 ---
-    permissions: 
-      contents: write
-
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Extract Tag Version
-        id: meta
-        run: |
-          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
