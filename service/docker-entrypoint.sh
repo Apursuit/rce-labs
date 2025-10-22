@@ -2,39 +2,43 @@
 
 rm -f /docker-entrypoint.sh
 
-# Configure Nginx
-mkdir /run/nginx
+mkdir -p /run/nginx 
 touch /run/nginx/nginx.pid
 
-# Get the user
 user=$(ls /home)
 
-# Check the environment variables for the flag and assign to INSERT_FLAG
-# 需要注意，以下语句会将FLAG相关传递变量进行覆盖，如果需要，请注意修改相关操作
-if [ "$DASFLAG" ]; then
-    INSERT_FLAG="$DASFLAG"
-    export DASFLAG=no_FLAG
-    DASFLAG=no_FLAG
-elif [ "$FLAG" ]; then
-    INSERT_FLAG="$FLAG"
-    export FLAG=no_FLAG
-    FLAG=no_FLAG
-elif [ "$GZCTF_FLAG" ]; then
-    INSERT_FLAG="$GZCTF_FLAG"
-    export GZCTF_FLAG=no_FLAG
-    GZCTF_FLAG=no_FLAG
+if command -v uuidgen >/dev/null 2>&1; then
+    # 生成一个标准的 UUID，并格式化为 flag{}
+    RANDOM_UUID_FLAG="flag{$(uuidgen)}"
 else
-    INSERT_FLAG="flag{TEST_Dynamic_FLAG}"
+    RANDOM_UUID_FLAG="flag{$(head /dev/urandom | tr -dc 'a-f0-9' | head -c 32)}"
 fi
 
-# 将FLAG写入文件 请根据需要修改
+if [ "$DASFLAG" ]; then
+    INSERT_FLAG="$DASFLAG"
+elif [ "$FLAG" ]; then
+    INSERT_FLAG="$FLAG"
+elif [ "$GZCTF_FLAG" ]; then
+    INSERT_FLAG="$GZCTF_FLAG"
+else
+    INSERT_FLAG="$RANDOM_UUID_FLAG"
+fi
+
+export DASFLAG=no_FLAG
+export FLAG=no_FLAG
+export GZCTF_FLAG=no_FLAG
+DASFLAG=no_FLAG
+FLAG=no_FLAG
+GZCTF_FLAG=no_FLAG
+
+echo "$INSERT_FLAG" | tee /flag
+
 echo "Find the hope in the unexpected. Find the courage in the challenge. Find your vision on the solitary road." | tee /tmp/findme.txt
-echo $INSERT_FLAG | tee /flag
 
 chmod 744 /flag
 
 php-fpm & nginx &
 
-echo "Running..."
+echo "Running with dynamic flag: $INSERT_FLAG"
 
 tail -F /var/log/nginx/access.log /var/log/nginx/error.log

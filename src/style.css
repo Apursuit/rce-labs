@@ -1,0 +1,209 @@
+/* CSS 部分... */
+/* =================================================== */
+/* 1. 定义 CSS 变量（主题颜色） */
+/* =================================================== */
+:root {
+    /* 浅色主题 (默认) */
+    --bg-color: #f4f7f6;
+    --main-text-color: #333;
+    --secondary-text-color: #7f8c8d;
+    --card-bg-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hover-color: #4CAF50;
+    --modal-bg-color: #fff;
+    --header-border-color: #e0e0e0;
+    --switch-button-color: #6c757d;
+}
+
+/* 深色主题 */
+body.dark-theme {
+    --bg-color: #1e1e1e;
+    --main-text-color: #ffffff;
+    --secondary-text-color: #b0b0b0;
+    --card-bg-color: #2c2c2c;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --hover-color: #00bcd4; /* 蓝色或青色，在深色背景下效果更好 */
+    --modal-bg-color: #383838;
+    --header-border-color: #444;
+    --switch-button-color: #ced4da;
+}
+
+/* =================================================== */
+/* 2. 应用通用样式和变量 */
+/* =================================================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--main-text-color); /* 应用主题文字颜色 */
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s; /* 切换主题时有过渡效果 */
+}
+
+h1 {
+    color: var(--main-text-color);
+    margin-bottom: 30px;
+}
+
+/* 主题切换按钮样式 */
+#theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--switch-button-color);
+    transition: color 0.3s;
+    line-height: 1; /* 确保图标对齐 */
+}
+
+#theme-toggle:hover {
+    color: var(--hover-color);
+}
+
+
+/* 关卡列表容器 */
+#challenge-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 关卡按钮样式 */
+.challenge-button {
+    background-color: var(--card-bg-color);
+    color: var(--main-text-color);
+    border: none;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    transition: all 0.3s ease;
+    width: 180px;
+    height: 80px;
+}
+
+.challenge-button:hover {
+    background-color: var(--hover-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px var(--shadow-color);
+}
+
+/* 弹出框（模态框）样式 (背景不变，但内容使用变量) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.active {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}
+
+/* 弹出框内容 */
+.modal-content {
+    background-color: var(--modal-bg-color); /* 使用主题变量 */
+    color: var(--main-text-color); /* 使用主题变量 */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px var(--shadow-color);
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-content h2 {
+    color: var(--main-text-color);
+    border-bottom: 2px solid var(--header-border-color); /* 使用主题变量 */
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.modal-content p {
+    color: var(--secondary-text-color); /* 使用主题变量 */
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* 关闭按钮 */
+.close-button {
+    color: var(--secondary-text-color);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--main-text-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 前往题目按钮 (保持不变，使用硬编码颜色以保持品牌色) */
+#go-to-challenge {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#go-to-challenge:hover {
+    background-color: #0056b3;
+}
+
+/* 适配手机屏幕 */
+@media (max-width: 600px) {
+    .challenge-button {
+        width: 100%;
+        height: auto;
+    }
+    .modal-content {
+        width: 90%;
+    }
+}

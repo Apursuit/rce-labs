@@ -1,0 +1,257 @@
+{
+  "less-1": {
+    "title": "cat 命令读取文件",
+    "description": "尝试利用 cat 命令读取指定文件内容",
+    "url": "/less-1/"
+  },
+  "less-2": {
+    "title": "tac 命令倒序读取文件",
+    "description": "使用 tac 命令，从文件末尾开始倒序读取并显示内容",
+    "url": "/less-2/"
+  },
+  "less-3": {
+    "title": "head 命令查看文件头",
+    "description": "利用 head 命令查看文件的前几行内容",
+    "url": "/less-3/"
+  },
+  "less-4": {
+    "title": "tail 命令查看文件尾",
+    "description": "利用 tail 命令查看文件的后几行内容",
+    "url": "/less-4/"
+  },
+  "less-5": {
+    "title": "more 命令分页查看",
+    "description": "使用 more 命令进行分页显示文件内容",
+    "url": "/less-5/"
+  },
+  "less-6": {
+    "title": "less 命令高级分页查看",
+    "description": "使用 less 命令进行高级分页显示文件内容",
+    "url": "/less-6/"
+  },
+  "less-7": {
+    "title": "nl 命令显示行号",
+    "description": "使用 nl 命令读取文件并加上行号显示",
+    "url": "/less-7/"
+  },
+  "less-8": {
+    "title": "sort 命令排序输出",
+    "description": "使用 sort 命令对文件内容进行排序后输出",
+    "url": "/less-8/"
+  },
+  "less-9": {
+    "title": "uniq 命令去重",
+    "description": "使用 uniq 命令去除文件中重复的连续行",
+    "url": "/less-9/"
+  },
+  "less-10": {
+    "title": "dd 命令截取/复制区块",
+    "description": "使用 dd 以块为单位读取/截取文件内容，定位偏移",
+    "url": "/less-10/"
+  },
+  "less-11": {
+    "title": "rev 命令倒序字符串/行",
+    "description": "使用 rev 读取文件，逆序打印",
+    "url": "/less-11/"
+  },
+  "less-12": {
+    "title": "od 命令八/十六进制转储",
+    "description": "使用 od 以八进制/十六进制等格式显示文件内容",
+    "url": "/less-12/"
+  },
+  "less-13": {
+    "title": "xxd 命令十六进制转储",
+    "description": "使用 xxd 进行十六进制转储，常用于查看二进制数据",
+    "url": "/less-13/"
+  },
+  "less-14": {
+    "title": "hexdump 命令查看二进制",
+    "description": "使用 hexdump 以十六进制和其他格式转储文件",
+    "url": "/less-14/"
+  },
+  "less-15": {
+    "title": "base32 编码/解码",
+    "description": "使用 base32 命令对文件内容进行编码或解码操作",
+    "url": "/less-15/"
+  },
+  "less-16": {
+    "title": "base64 编码/解码",
+    "description": "使用 base64 命令对文件内容进行编码或解码操作",
+    "url": "/less-16/"
+  },
+  "less-17": {
+    "title": "strings 命令查找可打印字符串",
+    "description": "使用 strings 命令从文件中提取可打印的字符串",
+    "url": "/less-17/"
+  },
+  "less-18": {
+    "title": "grep 命令文本搜索",
+    "description": "使用 grep 命令在文件中搜索特定文本模式，更强大的读取工具",
+    "url": "/less-18/"
+  },
+  "less-19": {
+    "title": "file 命令识别文件类型",
+    "description": "使用 file 命令识别给定文件的类型，尝试触发报错读取",
+    "url": "/less-19/"
+  },
+  "less-20": {
+    "title": "date 命令时间/格式化",
+    "description": "使用 date 获取系统时间并格式化输出，尝试触发报错读取",
+    "url": "/less-20/"
+  },
+  "less-21": {
+    "title": "diff 命令内容对比",
+    "description": "使用 diff 对比两个文件差异，尝试信息侧漏",
+    "url": "/less-21/"
+  },
+  "less-22": {
+    "title": "find 命令文件搜索",
+    "description": "使用 find 在文件系统中搜索文件或目录。注意：本关找到 findme.txt 的位置即可",
+    "url": "/less-22/"
+  },
+  "less-23": {
+    "title": "cp 命令复制文件",
+    "description": "尝试利用 cp 将文件复制到 Web 目录",
+    "url": "/less-23/"
+  },
+  "less-24": {
+    "title": "mv 命令移动/更名文件",
+    "description": "利用 mv 移动或重命名文件，实现隐藏/覆盖或部署 Webshell",
+    "url": "/less-24/"
+  },
+  "less-25": {
+    "title": "ping 命令 DNSLOG/ICMP 外带",
+    "description": "使用 ping 测试出网，利用 DNSLOG/ICMP 外带无回显命令执行结果",
+    "url": "/less-25/"
+  },
+  "less-26": {
+    "title": "curl 发起 HTTP 请求",
+    "description": "使用 curl 发送 HTTP 请求，尝试外带数据或下载远程文件",
+    "url": "/less-26/"
+  },
+  "less-27": {
+    "title": "echo 命令回显/重定向",
+    "description": "使用 echo 输出文本或变量，配合重定向写入文件/木马",
+    "url": "/less-27/"
+  },
+  "less-28": {
+    "title": "wget 命令网络下载",
+    "description": "使用 wget 下载远程文件，结合参数控制输出路径",
+    "url": "/less-28/"
+  },
+  "less-29": {
+    "title": "nc 反弹 shell",
+    "description": "使用 nc 进行反弹 shell 或端口监听",
+    "url": "/less-29/"
+  },
+  "less-30": {
+    "title": "ncat 反弹 shell",
+    "description": "使用 ncat 进行反弹 shell，waf误伤，请先学习后续姿势",
+    "url": "/less-30/"
+  },
+  "less-31": {
+    "title": "sed 篡改/写入 Webshell",
+    "description": "利用 sed 的替换/插入能力修改文件或写入 Webshell",
+    "url": "/less-31/"
+  },
+  "less-32": {
+    "title": "通配符 ? 代替单字符",
+    "description": "利用通配符 ? 模糊匹配单个字符，绕过关键字过滤",
+    "url": "/less-32/"
+  },
+  "less-33": {
+    "title": "通配符 * 代替多字符",
+    "description": "利用通配符 * 模糊匹配多个字符，绕过关键字过滤",
+    "url": "/less-33/"
+  },
+  "less-34": {
+    "title": "$ 变量定义绕过 WAF",
+    "description": "利用变量定义与拼接拆分敏感关键字，绕过黑名单",
+    "url": "/less-34/"
+  },
+  "less-35": {
+    "title": "多命令执行分隔 ;",
+    "description": "使用分号 ; 分隔执行多个命令",
+    "url": "/less-35/"
+  },
+  "less-36": {
+    "title": "多命令执行逻辑 &&",
+    "description": "使用逻辑与 &&：前命令成功才执行后命令",
+    "url": "/less-36/"
+  },
+  "less-37": {
+    "title": "多命令执行逻辑 ||",
+    "description": "使用逻辑或 ||：前命令失败才执行后命令",
+    "url": "/less-37/"
+  },
+  "less-38": {
+    "title": "反引号 `` 优先级",
+    "description": "反引号中的命令先执行，其结果再参与外层命令",
+    "url": "/less-38/"
+  },
+  "less-39": {
+    "title": "绕过注释 #",
+    "description": "# 会注释后续内容，单行生效，尝试绕过注释",
+    "url": "/less-39/"
+  },
+  "less-40": {
+    "title": "绕过空格 \\t (Tab)",
+    "description": "用 Tab（URL 编码 %09）代替空格进行分词",
+    "url": "/less-40/"
+  },
+  "less-41": {
+    "title": "绕过空格 $IFS (环境变量)",
+    "description": "用环境变量 $IFS（分隔符）代替空格进行分词",
+    "url": "/less-41/"
+  },
+  "less-42": {
+    "title": "绕过空格 ${IFS}",
+    "description": "利用 ${IFS} 代替空格进行命令执行",
+    "url": "/less-42/"
+  },
+  "less-43": {
+    "title": "绕过空格 bash {,}",
+    "description": "利用 Bash 的大括号展开 {,} 结构代替空格",
+    "url": "/less-43/"
+  },
+  "less-44": {
+    "title": "绕过黑名单关键字 ' (单引号)",
+    "description": "引用移除：shell环境命令 空引号 不生效，不影响命令解释",
+    "url": "/less-44/"
+  },
+  "less-45": {
+    "title": "绕过黑名单关键字 \" (双引号)",
+    "description": "引用移除：shell环境命令 空引号 不生效，不影响命令解释",
+    "url": "/less-45/"
+  },
+  "less-46": {
+    "title": "绕过黑名单关键字 ? (问号)",
+    "description": "使用问号 ? 在路径/命令中替代单字符绕过",
+    "url": "/less-46/"
+  },
+  "less-47": {
+    "title": "绕过黑名单关键字 * (星号)",
+    "description": "使用星号 * 通配多个字符进行绕过",
+    "url": "/less-47/"
+  },
+  "less-48": {
+    "title": "绕过黑名单关键字 \\ (反斜杠)",
+    "description": "引用移除：无特殊语义转义符，忽略反斜杠，不影响命令解释",
+    "url": "/less-48/"
+  },
+  "less-49": {
+    "title": "$@ 参数绕过",
+    "description": "引用移除：参数列表 $@ 默认为空，不影响命令解释",
+    "url": "/less-49/"
+  },
+  "less-50": {
+    "title": "绕过黑名单关键字 . (点)",
+    "description": "利用 . 执行临时文件（难度高）",
+    "url": "/less-50/"
+  },
+  "less-51": {
+    "title": "最终考察 - 无回显 RCE",
+    "description": "命令执行结果不回显，尝试外带/时间/文件等方式验证",
+    "url": "/less-51/"
+  }
+}

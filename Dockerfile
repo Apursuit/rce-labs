@@ -17,6 +17,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     binutils \
     # 提供了 file 命令 
     file \
+    # 提供了 uuidgen 命令
+    util-linux \
     && rm -rf /var/cache/apk/*
 
 # 拷贝容器入口点脚本
