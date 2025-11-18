@@ -10,6 +10,27 @@
 
 ![](/assets/4.png)
 
+## 部署
+
+### docker compose（推荐）
+
+```bash
+git clone https://github.com/Apursuit/rce-labs.git
+cd rce-labs/docker
+docker-compose up -d
+```
+
+访问 http://ip:8080/
+
+### docker
+
+```bash
+docker run -d -p 8080:80 --name rce-lab-latest the0n3/rce-labs:latest
+```
+
+访问 http://ip:8080/
+
+
 ## 关卡设计
 
 常用命令 + 绕过技巧（插入新关卡后顺序）
@@ -140,23 +161,3 @@ Linux 终端的特性具有简单高效等优点，在 RCE 场景下，往往可
 - 时间盲注
 - 临时文件执行
 
-
-## 部署
-
-### docker compose（推荐）
-
-```bash
-git clone https://github.com/Apursuit/rce-labs.git
-cd rce-labs/docker
-docker-compose up -d
-```
-
-访问 http://ip:8080/
-
-### docker
-
-```bash
-docker run -d -p 8080:80 --name rce-lab-latest the0n3/rce-labs:latest
-```
-
-访问 http://ip:8080/
