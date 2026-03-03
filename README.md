@@ -13,6 +13,35 @@
 
 ## 部署
 
+
+### 安装docker、docker compose
+
+推荐使用项目 https://github.com/SuperManito/LinuxMirrors
+
+使用 root 权限执行以下命令安装 Docker 和 Docker Compose：
+
+
+GNU/Linux 更换系统软件源
+
+```bash
+bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+```
+
+Docker 安装与换源
+
+
+```bash
+bash <(curl -sSL https://linuxmirrors.cn/docker.sh)
+```
+
+Docker 更换镜像加速器
+
+
+```bash
+bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --only-registry
+```
+
+
 ### docker compose（推荐）
 
 ```bash

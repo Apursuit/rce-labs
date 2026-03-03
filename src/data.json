@@ -41,7 +41,7 @@
   },
   "less-9": {
     "title": "uniq 命令去重",
-    "description": "使用 uniq 命令去除文件中重复的连续行",
+    "description": "使用 uniq 命令去重相邻重复并输出",
     "url": "/less-9/"
   },
   "less-10": {
@@ -50,7 +50,7 @@
     "url": "/less-10/"
   },
   "less-11": {
-    "title": "rev 命令倒序字符串/行",
+    "title": "rev 命令逐行把每一行的字符反转",
     "description": "使用 rev 读取文件，逆序打印",
     "url": "/less-11/"
   },
@@ -86,7 +86,7 @@
   },
   "less-18": {
     "title": "grep 命令文本搜索",
-    "description": "使用 grep 命令在文件中搜索特定文本模式，更强大的读取工具",
+    "description": "使用 grep 命令在文件中按模式匹配搜索/过滤文本行",
     "url": "/less-18/"
   },
   "less-19": {
@@ -165,7 +165,7 @@
     "url": "/less-33/"
   },
     "less-34": {
-    "title": "通配符 [] 代替多字符",
+    "title": "通配符 [] 匹配单个字符的字符类/范围",
     "description": "利用通配符 [] 模糊匹配字符，绕过关键字过滤",
     "url": "/less-34/"
   },
@@ -190,9 +190,14 @@
     "url": "/less-37/"
   },
   "less-38": {
-    "title": "反引号 `` 优先级",
+    "title": "命令替换 - 反引号",
     "description": "反引号中的命令先执行，其结果再参与外层命令",
     "url": "/less-38/"
+  },
+    "less-38a": {
+    "title": "命令替换 - $() 语法",
+    "description": "使用 $() 语法进行命令替换，其结果再参与外层命令",
+    "url": "/less-38a/"
   },
   "less-39": {
     "title": "绕过注释 #",
@@ -216,17 +221,17 @@
   },
   "less-43": {
     "title": "绕过空格 bash {,}",
-    "description": "利用 Bash 的大括号展开 {,} 结构代替空格",
+    "description": "利用 Bash 的大括号展开 {,} 依赖 shell 的解析规则/展开规则",
     "url": "/less-43/"
   },
   "less-44": {
     "title": "绕过黑名单关键字 ' (单引号)",
-    "description": "引用移除：shell环境命令 空引号 不生效，不影响命令解释",
+    "description": "引用移除：shell环境命令在同一单词中插入单/双引号，shell 解析后仍会拼接为同一token",
     "url": "/less-44/"
   },
   "less-45": {
     "title": "绕过黑名单关键字 \" (双引号)",
-    "description": "引用移除：shell环境命令 空引号 不生效，不影响命令解释",
+    "description": "引用移除：shell环境命令在同一单词中插入单/双引号，shell 解析后仍会拼接为同一token",
     "url": "/less-45/"
   },
   "less-46": {
@@ -241,17 +246,17 @@
   },
   "less-48": {
     "title": "绕过黑名单关键字 \\ (反斜杠)",
-    "description": "引用移除：无特殊语义转义符，忽略反斜杠，不影响命令解释",
+    "description": "引用移除：无特殊语义转义符，在某些位置用反斜杠插入，最终可能被解析为同一命令/路径",
     "url": "/less-48/"
   },
   "less-49": {
     "title": "$@ 参数绕过",
-    "description": "引用移除：参数列表 $@ 默认为空，不影响命令解释",
+    "description": "引用移除：参数列表 $@ 默认为空，shell 解析后仍会拼接为同一token",
     "url": "/less-49/"
   },
   "less-50": {
-    "title": "绕过黑名单关键字 . (点)",
-    "description": "利用 . 执行临时文件（难度高）",
+    "title": "绕过黑名单关键字 临时文件",
+    "description": "执行临时文件（难度高）",
     "url": "/less-50/"
   },
   "less-51": {
