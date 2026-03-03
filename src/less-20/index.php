@@ -1,8 +1,12 @@
 <?php
-# /flag
-highlight_file(__FILE__);
-$cmd = $_GET['cmd'] ?? 'echo "<br>Ciallo～(∠・ω< )⌒★"';
-$pattern = '/cat|tac|head|tail|more|less|nl|sort|uniq|dd|rev|od|xxd|hexdump|base32|base64|strings|grep|file/';
-if(!preg_match($pattern,$cmd)){
-    system($cmd);
+
+# 包含功能函数
+include'/var/www/html/core/func.php';
+
+# 包含题目代码
+include'demo.php';
+
+# 调用过滤检查函数
+if(isset($pattern)) {
+check_filter_detail($pattern, $cmd);
 }

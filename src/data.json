@@ -164,10 +164,15 @@
     "description": "利用通配符 * 模糊匹配多个字符，绕过关键字过滤",
     "url": "/less-33/"
   },
-  "less-34": {
+    "less-34": {
+    "title": "通配符 [] 代替多字符",
+    "description": "利用通配符 [] 模糊匹配字符，绕过关键字过滤",
+    "url": "/less-34/"
+  },
+  "less-34a": {
     "title": "$ 变量定义绕过 WAF",
     "description": "利用变量定义与拼接拆分敏感关键字，绕过黑名单",
-    "url": "/less-34/"
+    "url": "/less-34a/"
   },
   "less-35": {
     "title": "多命令执行分隔 ;",
@@ -250,8 +255,13 @@
     "url": "/less-50/"
   },
   "less-51": {
-    "title": "最终考察 - 无回显 RCE",
+    "title": "最终考察 - 无回显 RCE 1",
     "description": "命令执行结果不回显，尝试外带/时间/文件等方式验证",
     "url": "/less-51/"
+  },
+    "less-52": {
+    "title": "最终考察 - 无回显 RCE 2",
+    "description": "命令执行结果不回显，存在过滤",
+    "url": "/less-52/"
   }
 }
