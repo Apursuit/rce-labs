@@ -10,12 +10,13 @@
 
 ![](/assets/4.png)
 
+
 ## 部署
 
 ### docker compose（推荐）
 
 ```bash
-git clone https://github.com/Apursuit/rce-labs.git
+git clone https://hk.gh-proxy.org/https://github.com/Apursuit/rce-labs.git
 cd rce-labs/docker
 docker-compose up -d
 ```

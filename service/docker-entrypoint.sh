@@ -1,7 +1,5 @@
 #!/bin/sh
 
-rm -f /docker-entrypoint.sh
-
 mkdir -p /run/nginx 
 touch /run/nginx/nginx.pid
 

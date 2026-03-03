@@ -4,20 +4,21 @@ FROM php:7.3-fpm-alpine
 LABEL auther_template="CTF-Archives"
 
 # 安装必要的软件包
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories  &&\
-    apk add --update --no-cache nginx bash \
-    # ------ 添加的辅助工具 ------
-    # 提供了 base32, base64 等核心工具
+RUN echo "http://mirrors.aliyun.com/alpine/v3.15/main" > /etc/apk/repositories && \
+    echo "http://mirrors.aliyun.com/alpine/v3.15/community" >> /etc/apk/repositories && \
+    echo "http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.15/main" >> /etc/apk/repositories && \
+    echo "http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.15/community" >> /etc/apk/repositories && \
+    echo "http://mirrors.ustc.edu.cn/alpine/v3.15/main" >> /etc/apk/repositories && \
+    echo "http://mirrors.ustc.edu.cn/alpine/v3.15/community" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/main" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/community" >> /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache nginx bash \
     coreutils \
-    # 提供了 xxd 命令 (vim-full 或 vim-tools 的一部分)
     vim \
-    # 提供了 nc、ncat 命令，支持-e、-c参数
     nmap-ncat \
-    # 提供了 strings 命令
     binutils \
-    # 提供了 file 命令 
     file \
-    # 提供了 uuidgen 命令
     util-linux \
     && rm -rf /var/cache/apk/*
 
