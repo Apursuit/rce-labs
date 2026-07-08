@@ -10,7 +10,7 @@ function check_filter_detail($pattern, $cmd) {
     }
 
     if (preg_match($pattern, $cmd, $matches)) {
-        echo "过滤内容：" . $matches[0]; # 返回命中的规则
+        echo '<div class="filter-hit">匹配过滤规则：' . htmlspecialchars($matches[0], ENT_QUOTES) . '</div>';
     }
 
     return false;

@@ -1,209 +1,591 @@
-/* CSS 部分... */
-/* =================================================== */
-/* 1. 定义 CSS 变量（主题颜色） */
-/* =================================================== */
 :root {
-    /* 浅色主题 (默认) */
-    --bg-color: #f4f7f6;
-    --main-text-color: #333;
-    --secondary-text-color: #7f8c8d;
-    --card-bg-color: #ffffff;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --hover-color: #4CAF50;
-    --modal-bg-color: #fff;
-    --header-border-color: #e0e0e0;
-    --switch-button-color: #6c757d;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    --font-mono: Consolas, "Liberation Mono", Menlo, "Microsoft YaHei Mono", monospace;
+    --bg-color: #f6f7f8;
+    --panel-bg: #ffffff;
+    --main-text-color: #1f2328;
+    --secondary-text-color: #6b7280;
+    --muted-text-color: #8b949e;
+    --border-color: #d8dee4;
+    --soft-border-color: #eaeef2;
+    --hover-bg: #f0f3f6;
+    --active-bg: #eef4ff;
+    --accent-color: #2563eb;
+    --accent-text-color: #1d4ed8;
+    --source-bg: #ffffff;
+    --source-border: #d8dee4;
+    --result-bg: #fbfcfd;
+    --warning-bg: #fff8d6;
+    --warning-border: #d4a72c;
+    --warning-text: #7d4e00;
 }
 
-/* 深色主题 */
 body.dark-theme {
-    --bg-color: #1e1e1e;
-    --main-text-color: #ffffff;
-    --secondary-text-color: #b0b0b0;
-    --card-bg-color: #2c2c2c;
-    --shadow-color: rgba(0, 0, 0, 0.5);
-    --hover-color: #00bcd4; /* 蓝色或青色，在深色背景下效果更好 */
-    --modal-bg-color: #383838;
-    --header-border-color: #444;
-    --switch-button-color: #ced4da;
+    --bg-color: #0f1115;
+    --panel-bg: #161b22;
+    --main-text-color: #d8dee9;
+    --secondary-text-color: #9aa4b2;
+    --muted-text-color: #7d8590;
+    --border-color: #30363d;
+    --soft-border-color: #252b33;
+    --hover-bg: #1f2630;
+    --active-bg: #172033;
+    --accent-color: #58a6ff;
+    --accent-text-color: #79c0ff;
+    --source-bg: #ffffff;
+    --source-border: #d8dee4;
+    --result-bg: #0d1117;
+    --warning-bg: #2d2300;
+    --warning-border: #9e6a03;
+    --warning-text: #e3b341;
 }
 
-/* =================================================== */
-/* 2. 应用通用样式和变量 */
-/* =================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--main-text-color); /* 应用主题文字颜色 */
     margin: 0;
-    padding: 20px;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s; /* 切换主题时有过渡效果 */
-}
-
-h1 {
+    background: var(--bg-color);
     color: var(--main-text-color);
-    margin-bottom: 30px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-/* 主题切换按钮样式 */
-#theme-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: var(--switch-button-color);
-    transition: color 0.3s;
-    line-height: 1; /* 确保图标对齐 */
+a {
+    color: inherit;
 }
 
-#theme-toggle:hover {
-    color: var(--hover-color);
-}
-
-
-/* 关卡列表容器 */
-#challenge-list {
+body.has-sidebar {
     display: flex;
-    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 248px;
+    min-width: 248px;
+    height: 100vh;
+    background: var(--panel-bg);
+    border-right: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.sidebar-brand {
+    display: block;
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid var(--soft-border-color);
+    color: var(--main-text-color);
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.sidebar-group-title {
+    padding: 14px 18px 5px;
+    color: var(--muted-text-color);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 31px;
+    padding: 5px 18px;
+    border-left: 2px solid transparent;
+    color: var(--secondary-text-color);
+    font-size: 13px;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.sidebar-item:hover {
+    background: var(--hover-bg);
+    color: var(--main-text-color);
+}
+
+.sidebar-item.active {
+    background: var(--active-bg);
+    border-left-color: var(--accent-color);
+    color: var(--accent-text-color);
+}
+
+.sidebar-num {
+    width: 24px;
+    flex: 0 0 24px;
+    color: var(--muted-text-color);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-align: right;
+}
+
+.sidebar-item.active .sidebar-num {
+    color: var(--accent-text-color);
+}
+
+.sidebar-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar-writeup {
+    display: block;
+    padding: 8px 18px;
+    border-top: 1px solid var(--soft-border-color);
+    color: var(--secondary-text-color);
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.sidebar-writeup:hover {
+    color: var(--main-text-color);
+}
+
+.sidebar-theme-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 18px;
+    border: 0;
+    border-top: 1px solid var(--soft-border-color);
+    background: transparent;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    text-align: left;
+}
+
+.sidebar-theme-btn:hover {
+    background: var(--hover-bg);
+    color: var(--main-text-color);
+}
+
+.theme-btn-icon {
+    display: inline-flex;
+    width: 18px;
+    flex: 0 0 18px;
     justify-content: center;
-    gap: 20px;
-    max-width: 1000px;
+}
+
+.theme-icon {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.theme-icon.moon {
+    box-shadow: 4px -2px 0 0 var(--panel-bg);
+}
+
+.theme-icon.sun {
+    box-shadow: 0 0 0 2px var(--panel-bg), 0 0 0 4px currentColor;
+}
+
+.theme-btn-label {
+    flex: 1;
+}
+
+.theme-btn-switch {
+    position: relative;
+    width: 34px;
+    height: 18px;
+    flex: 0 0 34px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--hover-bg);
+}
+
+.theme-btn-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--secondary-text-color);
+    transition: transform 0.18s ease;
+}
+
+body.dark-theme .theme-btn-knob {
+    transform: translateX(16px);
+    background: var(--accent-color);
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 30px 40px 24px;
+}
+
+.challenge-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    padding-bottom: 18px;
+}
+
+.home-header {
+    max-width: 980px;
+    margin: 0 auto 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.home-title {
+    margin: 0;
+    color: var(--main-text-color);
+    font-size: 24px;
+    font-weight: 650;
+    line-height: 1.25;
+}
+
+.home-subtitle {
+    margin: 4px 0 0;
+    color: var(--secondary-text-color);
+    font-size: 14px;
+}
+
+.challenge-list {
+    max-width: 980px;
     margin: 0 auto;
 }
 
-/* 关卡按钮样式 */
-.challenge-button {
-    background-color: var(--card-bg-color);
+.challenge-section {
+    margin-bottom: 28px;
+}
+
+.challenge-section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.challenge-section-header h2 {
+    margin: 0;
     color: var(--main-text-color);
-    border: none;
-    padding: 15px 25px;
-    text-align: center;
+    font-size: 15px;
+    font-weight: 650;
+}
+
+.challenge-section-header span {
+    color: var(--muted-text-color);
+    font-size: 12px;
+}
+
+.challenge-table {
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--panel-bg);
+}
+
+.challenge-row {
+    display: grid;
+    grid-template-columns: 92px minmax(190px, 0.7fr) minmax(240px, 1fr);
+    gap: 18px;
+    align-items: baseline;
+    min-height: 42px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--soft-border-color);
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px var(--shadow-color);
-    transition: all 0.3s ease;
-    width: 180px;
-    height: 80px;
 }
 
-.challenge-button:hover {
-    background-color: var(--hover-color);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 10px var(--shadow-color);
+.challenge-row:last-child {
+    border-bottom: 0;
 }
 
-/* 弹出框（模态框）样式 (背景不变，但内容使用变量) */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+.challenge-row:hover {
+    background: var(--hover-bg);
 }
 
-.modal.active {
-    display: block;
-    opacity: 1;
-    visibility: visible;
+.challenge-level {
+    color: var(--muted-text-color);
+    font-family: var(--font-mono);
+    font-size: 12px;
 }
 
-.modal-content-wrapper {
+.challenge-topic {
+    overflow: hidden;
+    color: var(--main-text-color);
+    font-weight: 550;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.challenge-summary {
+    overflow: hidden;
+    color: var(--secondary-text-color);
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.challenge-header {
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.challenge-meta {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+    color: var(--muted-text-color);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.challenge-header h1 {
+    margin: 0;
+    color: var(--main-text-color);
+    font-size: 21px;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+.challenge-desc {
+    margin: 5px 0 0;
+    color: var(--secondary-text-color);
+    font-size: 14px;
+}
+
+.challenge-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0 8px 10px 0;
+    margin-right: -8px;
+}
+
+.challenge-panel {
+    margin-bottom: 16px;
+}
+
+.panel-title {
+    margin-bottom: 6px;
+    color: var(--muted-text-color);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.challenge-source {
+    overflow-x: auto;
+    border: 1px solid var(--source-border);
+    border-radius: 4px;
+    background: var(--source-bg);
+    color: #111827;
+    font-size: 13.5px;
+    line-height: 1.65;
+}
+
+.challenge-source pre {
+    margin: 0;
+    padding: 14px 16px;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    white-space: pre;
+}
+
+.challenge-source code {
+    font-family: var(--font-mono);
+}
+
+.challenge-result {
+    overflow-x: auto;
+    padding: 12px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--result-bg);
+    color: var(--main-text-color);
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.filter-hit {
+    margin-bottom: 12px;
+    padding: 7px 10px;
+    border: 1px solid var(--warning-border);
+    border-left-width: 3px;
+    border-radius: 4px;
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    font-size: 13px;
+}
+
+.cmd-form {
+    flex: 0 0 auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--soft-border-color);
+    background: var(--bg-color);
+}
+
+.cmd-input-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--panel-bg);
 }
 
-/* 弹出框内容 */
-.modal-content {
-    background-color: var(--modal-bg-color); /* 使用主题变量 */
-    color: var(--main-text-color); /* 使用主题变量 */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px var(--shadow-color);
-    width: 80%;
-    max-width: 500px;
-    position: relative;
-    transform: translateY(-50px);
-    transition: transform 0.3s ease, background-color 0.3s;
+.cmd-input-wrapper:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 16%, transparent);
 }
 
-.modal.active .modal-content {
-    transform: translateY(0);
+.cmd-prompt {
+    padding: 0 11px 0 12px;
+    color: var(--accent-text-color);
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 650;
+    user-select: none;
 }
 
-.modal-content h2 {
+.cmd-input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 6px;
+    border: 0;
+    outline: 0;
+    background: transparent;
     color: var(--main-text-color);
-    border-bottom: 2px solid var(--header-border-color); /* 使用主题变量 */
-    padding-bottom: 10px;
-    margin-top: 0;
+    font-family: var(--font-mono);
+    font-size: 14px;
 }
 
-.modal-content p {
-    color: var(--secondary-text-color); /* 使用主题变量 */
-    line-height: 1.6;
-    margin-bottom: 25px;
+.cmd-input::placeholder {
+    color: var(--muted-text-color);
 }
 
-/* 关闭按钮 */
-.close-button {
-    color: var(--secondary-text-color);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    transition: color 0.2s;
+.cmd-clear {
+    display: none;
+    align-self: stretch;
+    padding: 0 10px;
+    border: 0;
+    background: transparent;
+    color: var(--muted-text-color);
     cursor: pointer;
+    font-size: 18px;
 }
 
-.close-button:hover,
-.close-button:focus {
+.cmd-clear.visible {
+    display: block;
+}
+
+.cmd-clear:hover {
     color: var(--main-text-color);
-    text-decoration: none;
+}
+
+.cmd-submit {
+    align-self: stretch;
+    padding: 0 18px;
+    border: 0;
+    border-left: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--accent-text-color);
     cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
 }
 
-/* 前往题目按钮 (保持不变，使用硬编码颜色以保持品牌色) */
-#go-to-challenge {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.cmd-submit:hover {
+    background: var(--hover-bg);
 }
 
-#go-to-challenge:hover {
-    background-color: #0056b3;
+.sidebar-nav::-webkit-scrollbar,
+.main-content::-webkit-scrollbar {
+    width: 8px;
 }
 
-/* 适配手机屏幕 */
-@media (max-width: 600px) {
-    .challenge-button {
-        width: 100%;
-        height: auto;
+.sidebar-nav::-webkit-scrollbar-track,
+.main-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb,
+.main-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+}
+
+@media (max-width: 860px) {
+    body.has-sidebar {
+        display: block;
     }
-    .modal-content {
-        width: 90%;
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        max-height: 44vh;
+        border-right: 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .main-content {
+        max-height: none;
+        padding: 20px 16px;
+    }
+
+    .challenge-layout {
+        height: calc(100vh - min(44vh, 320px));
+        max-height: calc(100vh - min(44vh, 320px));
+        overflow: hidden;
+        padding-bottom: 14px;
+    }
+
+    .home-header,
+    .challenge-list {
+        max-width: none;
+    }
+
+    .challenge-row {
+        grid-template-columns: 76px 1fr;
+        gap: 8px 12px;
+        padding: 10px 12px;
+    }
+
+    .challenge-summary {
+        grid-column: 2;
+        white-space: normal;
     }
 }
