@@ -12,14 +12,55 @@
 
 ## 目录
 
+- [快速部署](#快速部署)
 - [核心知识域](#核心知识域)
 - [关卡一览](#关卡一览)
-- [快速部署](#快速部署)
 - [开发指南](#开发指南)
 - [常见问题](#常见问题)
 - [贡献](#贡献)
 - [安全声明](#安全声明)
 - [License](#license)
+
+## 快速部署
+
+### 前置准备
+
+```bash
+bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+```
+
+> 一键配置 Linux 系统软件源，详见 [SuperManito/LinuxMirrors](https://github.com/SuperManito/LinuxMirrors)。
+
+安装并配置 Docker：
+
+```bash
+bash <(curl -sSL https://linuxmirrors.cn/docker.sh)
+```
+
+> 含 Docker 安装与镜像加速器配置。仅需更换加速器时可单独运行：
+> ```bash
+> bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --only-registry
+> ```
+
+### Docker（推荐）
+
+```bash
+docker run -d -p 8080:80 --name rce-labs the0n3/rce-labs:latest
+```
+
+访问 `http://localhost:8080`。
+
+### Docker Compose
+
+```bash
+git clone https://github.com/Apursuit/rce-labs.git
+cd rce-labs/docker
+docker compose up -d
+```
+
+访问 `http://localhost:8080`。
+
+> GitHub 访问受限时可替换 clone 地址为 `https://hk.gh-proxy.org/https://github.com/Apursuit/rce-labs.git`。
 
 ## 核心知识域
 
@@ -170,40 +211,6 @@
 
 </details>
 
-## 快速部署
-
-### 前置要求
-
-- [Docker](https://docs.docker.com/get-docker/) 20.10+
-- [Docker Compose](https://docs.docker.com/compose/install/) 2.0+（若使用 compose 方式）
-- 确保宿主机端口 `8080` 未被占用（或自定义映射）
-
-### Docker Compose（推荐）
-
-```bash
-git clone https://github.com/Apursuit/rce-labs.git
-cd rce-labs/docker
-docker compose up -d
-```
-
-访问 `http://localhost:8080`。
-
-> 如果你的网络环境访问 GitHub 受限，可将 clone 地址替换为 `https://hk.gh-proxy.org/https://github.com/Apursuit/rce-labs.git`。
-
-### Docker（单容器）
-
-```bash
-docker run -d -p 8080:80 --name rce-labs the0n3/rce-labs:latest
-```
-
-访问 `http://localhost:8080`。
-
-### 环境变量
-
-| 变量 | 说明 | 默认值 |
-|---|---|---|
-| `GZCTF_FLAG` | 动态 flag 值（兼容 GZCTF 平台） | `flag{this_is_a_test_flag}` |
-
 ## 开发指南
 
 ### 项目架构
@@ -242,17 +249,12 @@ docker compose up -d --build
 
 <details>
 <summary><strong>端口 8080 被占用？</strong></summary>
-修改 `docker-compose.yaml` 中的端口映射，例如改为 `9080:80`。
+ 修改端口映射，例如 `docker run -p 9080:80` 或 compose 中改为 `9080:80`。
 </details>
 
 <details>
 <summary><strong>Docker 拉取镜像缓慢？</strong></summary>
-可配置 Docker 镜像加速器（如阿里云镜像加速），或在 Docker Pull 命令后手动指定镜像源。
-</details>
-
-<details>
-<summary><strong>如何在 GZCTF 平台上使用？</strong></summary>
-本项目的 Docker 镜像已兼容 GZCTF 动态 flag 机制。在 GZCTF 题目配置中直接使用该镜像，flag 将通过环境变量 `GZCTF_FLAG` 注入。
+ 参考上方[快速部署](#快速部署)中的镜像加速配置。
 </details>
 
 ## 贡献
