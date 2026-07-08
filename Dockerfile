@@ -1,9 +1,7 @@
 FROM php:7.3-fpm-alpine
 
-# 制作者信息
 LABEL auther_template="CTF-Archives"
 
-# 安装必要的软件包
 RUN echo "http://mirrors.aliyun.com/alpine/v3.15/main" > /etc/apk/repositories && \
     echo "http://mirrors.aliyun.com/alpine/v3.15/community" >> /etc/apk/repositories && \
     echo "http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.15/main" >> /etc/apk/repositories && \
@@ -12,7 +10,7 @@ RUN echo "http://mirrors.aliyun.com/alpine/v3.15/main" > /etc/apk/repositories &
     echo "http://mirrors.ustc.edu.cn/alpine/v3.15/community" >> /etc/apk/repositories && \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/main" >> /etc/apk/repositories && \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/community" >> /etc/apk/repositories && \
-    apk update && \
+    apk update || true && \
     apk add --no-cache nginx bash \
     coreutils \
     vim \
