@@ -1,12 +1,16 @@
+<div align="center">
+
 # RCE-labs
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Docker Pulls](https://img.shields.io/docker/pulls/the0n3/rce-labs)](https://hub.docker.com/r/the0n3/rce-labs)
 [![GitHub stars](https://img.shields.io/github/stars/Apursuit/rce-labs)](https://github.com/Apursuit/rce-labs)
 
-**RCE-labs** 是一个面向 RCE（Remote Code Execution）漏洞利用入门的 CTF 靶场式学习平台。通过 50+ 由浅入深的实战关卡，系统覆盖了 Linux 命令审计、Shell 特性绕过滤、无回显 RCE 三大核心知识域。
+面向 RCE 漏洞利用入门的学习平台，由浅入深的实战关卡
 
 ![](/assets/1.png)
+
+</div>
 
 ![](/assets/2.png)
 
@@ -61,6 +65,10 @@ docker compose up -d
 访问 `http://localhost:8080`。
 
 > GitHub 访问受限时可替换 clone 地址为 `https://hk.gh-proxy.org/https://github.com/Apursuit/rce-labs.git`。
+
+### 离线虚拟机
+
+从 [Releases](https://github.com/Apursuit/rce-labs/releases) 下载 `rce-labs.ova`（约 99 MB），导入 VirtualBox 或 VMware 即可使用，无需安装 Docker。开机后屏幕会显示 IP，用浏览器访问该地址即可；若未显示 IP，可尝试更换虚拟机的网卡模式。
 
 ## 核心知识域
 
@@ -229,9 +237,10 @@ docker compose up -d
 rce-labs/
 ├── src/
 │   ├── index.php          # 入口页（关卡导航）
+│   ├── info.php           # phpinfo，供综合关卡查阅运行配置
 │   ├── data.json           # 关卡元数据
 │   ├── core/               # 公共逻辑（关卡框架）
-│   ├── less-1/ ... less-52/ # 各关卡的独立目录（含 9a、9b、24a、34a、38a）
+│   ├── less-1/ ... less-53/ # 各关卡的独立目录（含 9a、9b、24a、34a、38a）
 │   ├── app.js              # 前端交互（主题切换、快捷键、侧边栏定位）
 │   └── style.css           # 全局样式
 ├── config/
