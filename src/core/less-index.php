@@ -1,8 +1,16 @@
 <?php
+if (!defined('RCE_LABS_LEVEL_DIR')) {
+    http_response_code(404);
+    exit;
+}
+
+$levelDir   = RCE_LABS_LEVEL_DIR;
+$currentDir = basename($levelDir);
+
 include '/var/www/html/core/func.php';
 
 ob_start();
-include 'demo.php';
+include $levelDir . '/demo.php';
 if (isset($pattern)) {
     check_filter_detail($pattern, $cmd);
 }
@@ -18,17 +26,13 @@ if ($pos !== false) {
     $resultText = '';
 }
 
-$currentDir = basename(__DIR__);
 $data = json_decode(file_get_contents('/var/www/html/data.json'), true);
 if (!is_array($data)) $data = [];
 
 $currentTitle = isset($data[$currentDir]) ? $data[$currentDir]['title'] : $currentDir;
 $currentDesc = isset($data[$currentDir]) ? $data[$currentDir]['description'] : '';
 $currentCmd = isset($_GET['cmd']) ? $_GET['cmd'] : '';
-$currentLevel = 0;
-if (preg_match('/less-(\d+)/', $currentDir, $matches)) {
-    $currentLevel = (int) $matches[1];
-}
+$currentLevel = challenge_level_label($currentDir);
 
 include '/var/www/html/core/sidebar.php';
 ?><!DOCTYPE html>
@@ -45,7 +49,7 @@ include '/var/www/html/core/sidebar.php';
 <main class="main-content challenge-layout">
     <header class="challenge-header">
         <div class="challenge-meta">
-            <span>Level <?= str_pad((string) $currentLevel, 2, '0', STR_PAD_LEFT) ?></span>
+            <span>Level <?= htmlspecialchars($currentLevel) ?></span>
             <span>RCE-labs</span>
         </div>
         <h1><?= htmlspecialchars($currentTitle) ?></h1>
@@ -72,7 +76,7 @@ include '/var/www/html/core/sidebar.php';
             <input type="text" name="cmd" id="cmd-input"
                    class="cmd-input"
                    value="<?= htmlspecialchars($currentCmd) ?>"
-                   placeholder="输入命令，Enter 执行"
+                   placeholder="按 / 聚焦输入框，Enter 执行"
                    autofocus>
             <button type="button" class="cmd-clear" id="cmd-clear" title="清空输入">&times;</button>
             <button type="submit" class="cmd-submit">执行</button>
@@ -80,86 +84,6 @@ include '/var/www/html/core/sidebar.php';
     </form>
 </main>
 
-<script>
-(function () {
-    var toggleBtn = document.getElementById('theme-toggle');
-    var body = document.body;
-
-    function applyTheme(isDark) {
-        var icon;
-        var label;
-        if (toggleBtn) {
-            icon = toggleBtn.querySelector('.theme-icon');
-            label = toggleBtn.querySelector('.theme-btn-label');
-        }
-
-        if (isDark) {
-            body.classList.add('dark-theme');
-            if (icon) { icon.classList.remove('moon'); icon.classList.add('sun'); }
-            if (label) label.textContent = '浅色模式';
-            localStorage.setItem('theme', 'dark');
-        } else {
-            body.classList.remove('dark-theme');
-            if (icon) { icon.classList.remove('sun'); icon.classList.add('moon'); }
-            if (label) label.textContent = '深色模式';
-            localStorage.setItem('theme', 'light');
-        }
-    }
-
-    var saved = localStorage.getItem('theme');
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    applyTheme(saved === 'dark' || (!saved && prefersDark));
-
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', function () {
-            applyTheme(!body.classList.contains('dark-theme'));
-        });
-    }
-
-    document.addEventListener('keydown', function (e) {
-        var input = document.getElementById('cmd-input');
-        if (!input) return;
-        var tag = document.activeElement ? document.activeElement.tagName : '';
-        if (e.key === '/' && document.activeElement !== input && tag !== 'INPUT' && tag !== 'TEXTAREA') {
-            e.preventDefault();
-            input.focus();
-            input.select();
-        }
-    });
-
-    var cmdInput = document.getElementById('cmd-input');
-    var cmdClear = document.getElementById('cmd-clear');
-    if (cmdInput) {
-        cmdInput.focus();
-        var len = cmdInput.value.length;
-        cmdInput.setSelectionRange(len, len);
-
-        function toggleClear() {
-            if (!cmdClear) return;
-            if (cmdInput.value.length > 0) {
-                cmdClear.classList.add('visible');
-            } else {
-                cmdClear.classList.remove('visible');
-            }
-        }
-
-        cmdInput.addEventListener('input', toggleClear);
-        toggleClear();
-    }
-
-    if (cmdClear) {
-        cmdClear.addEventListener('click', function () {
-            cmdInput.value = '';
-            cmdInput.focus();
-            cmdClear.classList.remove('visible');
-        });
-    }
-
-    var activeItem = document.querySelector('.sidebar-item.active');
-    if (activeItem) {
-        activeItem.scrollIntoView({ block: 'nearest', behavior: 'instant' });
-    }
-})();
-</script>
+<script src="/app.js"></script>
 </body>
 </html>

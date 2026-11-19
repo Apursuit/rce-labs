@@ -144,17 +144,23 @@ body.has-sidebar {
     white-space: nowrap;
 }
 
-.sidebar-writeup {
-    display: block;
-    padding: 8px 18px;
+.sidebar-writeup,
+.sidebar-github {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 18px;
     border-top: 1px solid var(--soft-border-color);
     color: var(--secondary-text-color);
-    font-size: 12px;
-    text-align: center;
+    font-size: 12.5px;
     text-decoration: none;
+    transition: background 0.15s, color 0.15s;
 }
 
-.sidebar-writeup:hover {
+.sidebar-writeup:hover,
+.sidebar-github:hover {
+    background: color-mix(in srgb, var(--main-text-color) 8%, transparent);
     color: var(--main-text-color);
 }
 
@@ -170,13 +176,18 @@ body.has-sidebar {
     color: var(--secondary-text-color);
     cursor: pointer;
     font: inherit;
-    font-size: 13px;
+    font-size: 12.5px;
     text-align: left;
+    transition: background 0.15s, color 0.15s;
 }
 
 .sidebar-theme-btn:hover {
-    background: var(--hover-bg);
+    background: color-mix(in srgb, var(--main-text-color) 8%, transparent);
     color: var(--main-text-color);
+}
+
+.sidebar-theme-btn:hover .theme-btn-knob {
+    background: var(--main-text-color);
 }
 
 .theme-btn-icon {
@@ -544,6 +555,14 @@ body.dark-theme .theme-btn-knob {
     border: 2px solid transparent;
     border-radius: 999px;
     background-clip: content-box;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .sidebar-nav,
+    .main-content {
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-color) transparent;
+    }
 }
 
 @media (max-width: 860px) {

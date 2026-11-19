@@ -44,6 +44,16 @@
     "description": "使用 uniq 命令去重相邻重复并输出",
     "url": "/less-9/"
   },
+  "less-9a": {
+    "title": "fold 命令折行输出",
+    "description": "使用 fold 逐行处理文本内容，支持按宽度折叠过长行",
+    "url": "/less-9a/"
+  },
+  "less-9b": {
+    "title": "expand 命令展开制表符",
+    "description": "使用 expand 处理文本内容，支持将制表符展开为空格",
+    "url": "/less-9b/"
+  },
   "less-10": {
     "title": "dd 命令截取/复制区块",
     "description": "使用 dd 以块为单位读取/截取文件内容，定位偏移",
@@ -118,6 +128,11 @@
     "title": "mv 命令移动/更名文件",
     "description": "利用 mv 移动或重命名文件，实现隐藏/覆盖或部署 Webshell",
     "url": "/less-24/"
+  },
+  "less-24a": {
+    "title": "tee 命令读取/写入",
+    "description": "使用 tee 读取标准输入，支持同时输出到标准输出与文件",
+    "url": "/less-24a/"
   },
   "less-25": {
     "title": "ping 命令 DNSLOG/ICMP 外带",
@@ -268,5 +283,10 @@
     "title": "最终考察 - 无回显 RCE 2",
     "description": "命令执行结果不回显，存在过滤",
     "url": "/less-52/"
+  },
+  "less-53": {
+    "title": "最终考察 - 无字母数字 RCE",
+    "description": "黑名单无法覆盖全部输入，尝试在过滤字母与数字后完成命令执行",
+    "url": "/less-53/"
   }
 }

