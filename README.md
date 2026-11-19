@@ -14,37 +14,27 @@
 
 ![](/assets/2.png)
 
-## 目录
-
-- [快速部署](#快速部署)
-- [核心知识域](#核心知识域)
-- [关卡一览](#关卡一览)
-- [开发指南](#开发指南)
-- [常见问题](#常见问题)
-- [贡献](#贡献)
-- [安全声明](#安全声明)
-- [License](#license)
-
 ## 快速部署
 
 ### 前置准备
+
+软件包换源
 
 ```bash
 bash <(curl -sSL https://linuxmirrors.cn/main.sh)
 ```
 
-> 一键配置 Linux 系统软件源，详见 [SuperManito/LinuxMirrors](https://github.com/SuperManito/LinuxMirrors)。
-
-安装并配置 Docker：
+安装 Docker：
 
 ```bash
 bash <(curl -sSL https://linuxmirrors.cn/docker.sh)
 ```
 
-> 含 Docker 安装与镜像加速器配置。仅需更换加速器时可单独运行：
-> ```bash
-> bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --only-registry
-> ```
+配置 docker 镜像加速
+
+```bash
+bash <(curl -sSL https://linuxmirrors.cn/docker.sh) --only-registry
+```
 
 ### Docker（推荐）
 
@@ -76,7 +66,7 @@ docker compose up -d
 
 ### 一、Linux 命令审计
 
-掌握在受限 Shell 环境中读取、检索、传输文件所需的常用命令及其替代方案。每个关卡限制特定命令的执行环境，迫使学习者探索同一功能的不同实现路径。
+在受限 Shell 环境中读取、检索、传输文件所需的常用命令及其替代方案
 
 | 命令 | 功能 | 典型用法 |
 |---|---|---|
@@ -106,7 +96,7 @@ docker compose up -d
 
 ### 二、Shell 特性与绕过滤
 
-在真实的 RCE 场景中，WAF 或应用层过滤通常会限制命令关键字、参数分隔符或特殊符号。以下 Shell 特性可用于绕过这些防御。
+利用 shell 特性，绕过常见的 WAF 或应用层的黑名单关键词、参数分隔符或特殊符号
 
 | 特性 | 机制 | 绕过滤示例 |
 |---|---|---|
@@ -126,7 +116,7 @@ docker compose up -d
 
 ### 三、无回显 RCE（Blind RCE）
 
-当命令输出不直接呈现在 HTTP 响应中时，需要通过旁路手段获取执行结果。
+当命令输出不直接呈现在 HTTP 响应中时，需要通过旁路手段获取执行结果
 
 | 手法 | 原理 | 适用场景 |
 |---|---|---|
@@ -136,11 +126,10 @@ docker compose up -d
 | 时间盲注 | 根据命令是否执行成功产生不同延迟，二分或逐位推测结果 | 完全不出网 |
 | 临时文件执行 | 将多行命令写入文件后 `bash` 执行，绕过单次输入限制 | 有写权限，限制一次性输入长度 |
 
----
 
-## 关卡一览
+## 关卡
 
-> 58 个关卡按知识域分类排列。每个关卡锁定一项特定的命令或绕过技术，需要在该约束下完成 flag 读取。
+主要包括文件读取、文件操作、网络通信、绕过技巧方向题目
 
 <details>
 <summary><strong>文件读取类</strong>（关卡 1–22）</summary>
